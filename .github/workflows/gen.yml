@@ -17,8 +17,7 @@ jobs:
       - name: Update APT
         run:  sudo apt update
       - name: Install Host Dependencies
-        run: sudo apt install cmake:amd64 ninja-build:amd64 gcc-12-aarch64-linux-gnu:amd64 g++-12-aarch64-linux-gnu:amd64 \ 
-             python:amd64 python3:amd64 bison:amd64 python3-distutils:amd64 ocaml-core:amd64 xz-utils:arm64 pkg-config:amd64
+        run: sudo apt install cmake:amd64 ninja-build:amd64 gcc-12-aarch64-linux-gnu:amd64 g++-12-aarch64-linux-gnu:amd64 bison:amd64 python3-distutils:amd64 ocaml-core:amd64 xz-utils:arm64 pkg-config:amd64
       - name: Install Target Dependencies
         run: | 
           sudo apt install ibglm-dev:arm64 libxcb-dri3-0:arm64 libxcb-present0 :arm64libpciaccess0:arm64 \
