@@ -28,15 +28,15 @@ jobs:
       - name: Download SDK
         run: curl -o vulkan-sdk.tar.gz https://sdk.lunarg.com/sdk/download/latest/linux/vulkan-sdk.tar.gz
       - name: Unpack SDK
-        run: |
-          mkdir vulkan-sdk
-          tar -xvf vulkan-sdk.tar.gz -C vulkan-sdk --strip-components 2
+        run: tar -xvf vulkan-sdk.tar.gz
       - name: Remove x86_64
-        run: rm -r vulkan-sdk/x86_64
+        run: | 
+          cd `find . -maxdepth 1 -type d -name '1.*' -print -quit`
+          rm -r x86_64
       - name: Build SDK
         run: |
-          cd vulkan-sdk
-           CC=/usr/bin/aarch64-linux-gnu-gcc-12 CXX=/usr/bin/aarch64-linux-gnu-g++-12 ./vulkan-sdk vulkan-loader vulkan-validationlayers vulkan-extensionlayer 
+          cd `find . -maxdepth 1 -type d -name '1.*' -print -quit`
+          CC=/usr/bin/aarch64-linux-gnu-gcc-12 CXX=/usr/bin/aarch64-linux-gnu-g++-12 ./vulkan-sdk vulkan-loader vulkan-validationlayers vulkan-extensionlayer 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v3
         with:
