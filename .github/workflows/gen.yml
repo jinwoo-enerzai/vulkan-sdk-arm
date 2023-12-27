@@ -1,0 +1,45 @@
+name: Build-Samples
+on: [workflow_dispatch, pull_request]
+
+jobs:
+  build-linux-arm:
+    name: Build SDK for Linux arm64
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+      - name: Setup Repositories
+        run: sudo mv crosscomp-sources.list /etc/apt/sources.list;
+      - name: Check apt sources
+        run: cat /etc/apt/sources.list
+      - name: Add arm64 as architecture
+        run: sudo dpkg --add-architecture arm64
+      - name: Update APT
+        run:  sudo apt update
+      - name: Install Host Dependencies
+        run: sudo apt install cmake:amd64 ninja-build:amd64 gcc-12-aarch64-linux-gnu:amd64 g++-12-aarch64-linux-gnu:amd64 \ 
+             python:amd64 python3:amd64 bison:amd64 python3-distutils:amd64 ocaml-core:amd64 xz-utils:arm64 pkg-config:amd64
+      - name: Install Target Dependencies
+        run: | 
+          sudo apt install ibglm-dev:arm64 libxcb-dri3-0:arm64 libxcb-present0 :arm64libpciaccess0:arm64 \
+          libpng-dev:arm64 libxcb-keysyms1-dev:arm64 libxcb-dri3-dev:arm64 libx11-dev:arm64 \
+          libmirclient-dev:arm64 libwayland-dev:arm64 libxrandr-dev:arm64 libxcb-randr0-dev:arm64 libxcb-ewmh-dev:arm64 \
+          libx11-xcb-dev:arm64 liblz4-dev:arm64 libzstd-dev:arm64 \
+          libxml2-dev:arm64 wayland-protocols:arm64 \
+          qtbase5-dev:arm64 -y --no-install-recommends
+      - name: Download and unpack SDK 
+        run: |
+          curl -o vulkan-sdk.tar.gz https://sdk.lunarg.com/sdk/download/latest/linux/vulkan-sdk.tar.gz
+          mkdir vulkan-sdk && tar -xvf vulkan-sdk.tar.gz -C vulkan-sdk --strip-components 1
+      - name: Remove x86_64
+        run: rm -r vulkan-sdk/x86_64
+      - name: Build SDK
+        run: |
+          cd vulkan-sdk
+           CC=/usr/bin/aarch64-linux-gnu-gcc-12 CXX=/usr/bin/aarch64-linux-gnu-g++-12 ./vulkan-sdk vulkan-loader vulkan-validationlayers vulkan-extensionlayer 
+      - name: Upload Artifacts
+        with:
+          name:  Vulkan-SDK-ARM
+          path:  vulkan-sdk/
+          
+          
