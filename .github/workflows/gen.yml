@@ -1,4 +1,4 @@
-name: Build-Samples
+name: Build-SDK
 on: [workflow_dispatch, pull_request]
 
 jobs:
