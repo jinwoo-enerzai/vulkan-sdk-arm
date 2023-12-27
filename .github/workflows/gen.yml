@@ -20,7 +20,7 @@ jobs:
         run: sudo apt install cmake:amd64 ninja-build:amd64 gcc-12-aarch64-linux-gnu:amd64 g++-12-aarch64-linux-gnu:amd64 bison:amd64 python3-distutils:amd64 ocaml-core:amd64 xz-utils:arm64 pkg-config:amd64
       - name: Install Target Dependencies
         run: | 
-          sudo apt install ibglm-dev:arm64 libxcb-dri3-0:arm64 libxcb-present0 :arm64libpciaccess0:arm64 \
+          sudo apt install libglm-dev:arm64 libxcb-dri3-0:arm64 libxcb-present0:arm64 libpciaccess0:arm64 \
           libpng-dev:arm64 libxcb-keysyms1-dev:arm64 libxcb-dri3-dev:arm64 libx11-dev:arm64 \
           libmirclient-dev:arm64 libwayland-dev:arm64 libxrandr-dev:arm64 libxcb-randr0-dev:arm64 libxcb-ewmh-dev:arm64 \
           libx11-xcb-dev:arm64 liblz4-dev:arm64 libzstd-dev:arm64 \
