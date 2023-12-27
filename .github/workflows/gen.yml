@@ -25,10 +25,12 @@ jobs:
           libwayland-dev:arm64 libxrandr-dev:arm64 libxcb-randr0-dev:arm64 libxcb-ewmh-dev:arm64 \
           libx11-xcb-dev:arm64 liblz4-dev:arm64 libzstd-dev:arm64 \
           libxml2-dev:arm64 wayland-protocols:arm64 -y --no-install-recommends
-      - name: Download and unpack SDK 
+      - name: Download SDK
+        run: curl -o vulkan-sdk.tar.gz https://sdk.lunarg.com/sdk/download/latest/linux/vulkan-sdk.tar.gz
+      - name: Unpack SDK
         run: |
-          curl -o vulkan-sdk.tar.gz https://sdk.lunarg.com/sdk/download/latest/linux/vulkan-sdk.tar.gz
-          mkdir vulkan-sdk && tar -xvf vulkan-sdk.tar.gz -C vulkan-sdk --strip-components 1
+          mkdir vulkan-sdk
+          tar -xvf vulkan-sdk.tar.gz -C vulkan-sdk --strip-components 1
       - name: Remove x86_64
         run: rm -r vulkan-sdk/x86_64
       - name: Build SDK
