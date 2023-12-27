@@ -30,7 +30,7 @@ jobs:
       - name: Unpack SDK
         run: |
           mkdir vulkan-sdk
-          tar -xvf vulkan-sdk.tar.gz -C vulkan-sdk --strip-components 1
+          tar -xvf vulkan-sdk.tar.gz -C vulkan-sdk --strip-components 2
       - name: Remove x86_64
         run: rm -r vulkan-sdk/x86_64
       - name: Build SDK
