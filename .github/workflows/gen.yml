@@ -4,8 +4,10 @@ on: [workflow_dispatch, pull_request]
 jobs:
   build-linux-arm:
     name: Build SDK for Linux arm64
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
+      - name: Check OS Version # Optional: Keep this step to confirm
+        run: lsb_release -a
       - name: Checkout Code
         uses: actions/checkout@v4
       - name: Setup Repositories
