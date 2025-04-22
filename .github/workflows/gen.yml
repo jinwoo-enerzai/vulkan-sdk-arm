@@ -39,7 +39,7 @@ jobs:
         run: |
           export CMAKE_TOOLCHAIN_FILE=`pwd`/aarch64-toolchain.cmake
           cd `find . -maxdepth 1 -type d -name '1.*' -print -quit`
-          CC=/usr/bin/aarch64-linux-gnu-gcc-12 CXX=/usr/bin/aarch64-linux-gnu-g++-12 ./vulkansdk --maxjobs vulkan-loader vulkan-validationlayers vulkan-extensionlayer shaderc
+          CC=/usr/bin/aarch64-linux-gnu-gcc-12 CXX=/usr/bin/aarch64-linux-gnu-g++-12 ./vulkansdk --maxjobs vulkan-loader vulkan-validationlayers vulkan-extensionlayer shaderc vulkantools vulkan-headers spirv-headers spirv-tools
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
